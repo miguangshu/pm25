@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <!-- 配置数据库连接信息 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://11.0.1.99:3306/pm25?characterEncoding=utf8"/>
+
+                <!--<property name="url" value="jdbc:mysql://222.128.13.159:64000/pm25?characterEncoding=utf8"/>-->
+                <property name="username" value="pm25"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="mappings/AirStatusMap.xml"></mapper>
+        <mapper resource="mappings/WeatherDataMap.xml"></mapper>
+    </mappers>
+</configuration>
