@@ -8,7 +8,4 @@ import java.util.List;
  * Created by miguangshu on 2016/6/21.
  */
 public class AirStatusDao {
-    public List<AirStatus> query(){
-        return null;
-    }
 }

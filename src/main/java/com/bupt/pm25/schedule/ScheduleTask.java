@@ -14,7 +14,7 @@ import java.util.TimerTask;
 public class ScheduleTask {
 
 	public static void timerTask() {
-		TimerTask task = new TimerTask() {
+		/*TimerTask task = new TimerTask() {
 			@Override
 			public void run() {
 				try {
@@ -37,7 +37,7 @@ public class ScheduleTask {
 		long delay = 0;
 		long intevalPeriod = 60 * 60 * 1000;// 这块是代码执行间隔,现在是10s执行一次
 		// schedules the task to be run in an interval
-		timer.scheduleAtFixedRate(task, delay, intevalPeriod);
+		timer.scheduleAtFixedRate(task, delay, intevalPeriod);*/
 	}
 
 	public static void main(String[] a) {

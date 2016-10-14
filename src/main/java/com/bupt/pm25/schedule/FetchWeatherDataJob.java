@@ -17,7 +17,7 @@ public class FetchWeatherDataJob implements org.quartz.Job{
     private static Logger _log = LoggerFactory.getLogger(FetchWeatherDataJob.class);
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        try {
+        /*try {
             _log.info(">>>>>>>>>>>>>>>开始采集天气数据......");
             WeatherService weatherService = new WeatherService();
             weatherService.fetchWeatherData();
@@ -26,6 +26,6 @@ public class FetchWeatherDataJob implements org.quartz.Job{
             e.printStackTrace();
         } catch(Exception e){
             e.printStackTrace();
-        }
+        }*/
     }
 }

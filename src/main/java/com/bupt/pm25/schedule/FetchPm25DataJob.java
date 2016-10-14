@@ -14,7 +14,7 @@ import java.io.IOException;
 public class FetchPm25DataJob implements org.quartz.Job{
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        try {
+        /*try {
             System.out.println(">>>>>>>>>>>>>>>开始采集pm25数据......");
             AirStatusService airStatusService = new AirStatusService();
             airStatusService.insert();
@@ -23,6 +23,6 @@ public class FetchPm25DataJob implements org.quartz.Job{
             e.printStackTrace();
         } catch(Exception e){
             e.printStackTrace();
-        }
+        }*/
     }
 }

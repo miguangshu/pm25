@@ -2,7 +2,6 @@
         <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bupt.pm25.dao.WeatherDataDao">
     <insert id="insert"  useGeneratedKeys="true">
-
         INSERT INTO t_weather_data (city_id,city_name,temperature, pressure, humidity,wind_speed,wind_direction_name, wind_direction,weather_name, weather, collect_time,create_date)
         VALUES (#{cityId},#{cityName},#{temperature},#{pressure},#{humidity},#{windSpeed},#{windDirectionName},#{windDirection},#{weatherName},#{weather},#{collectTime},now())
     </insert>
