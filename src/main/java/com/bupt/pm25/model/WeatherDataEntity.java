@@ -28,6 +28,7 @@ public class WeatherDataEntity {
 	private String weather;
 	// 扩展字段
 	private String extend;
+	private String createDate;
 
 	public Long getId() {
 		return id;
@@ -149,6 +150,15 @@ public class WeatherDataEntity {
 				", weatherName='" + weatherName + '\'' +
 				", weather='" + weather + '\'' +
 				", extend='" + extend + '\'' +
+				", createDate='" + createDate + '\'' +
 				'}';
+	}
+
+	public String getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
 	}
 }

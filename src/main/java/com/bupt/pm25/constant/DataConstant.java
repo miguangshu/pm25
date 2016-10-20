@@ -7,26 +7,6 @@ import java.util.Map;
  * Created by miguangshu on 2016/9/7.
  */
 public class DataConstant {
-    /*public static Map<String, String> cityMap = new HashMap<String,String>(); // 转换城市id, <src,desc>
-    static {
-        cityMap.put("54511", "001");// 北京市
-        cityMap.put("54511", "00101");// 海淀
-        cityMap.put("54511", "00102");// 石景山
-        cityMap.put("54511", "00103");// 丰台区
-        cityMap.put("54511", "00105");// 朝阳区
-        cityMap.put("54511", "00106");// 西城区
-        cityMap.put("54511", "00107");// 东城区
-        cityMap.put("54594", "00108");// 大兴区
-        cityMap.put("54431", "00109");// 通州区
-        cityMap.put("54398", "00110");// 顺义区
-        cityMap.put("54499", "00111");// 昌平区
-        cityMap.put("54505", "00112");// 门头沟区
-        cityMap.put("54424", "00113");// 平谷区
-        cityMap.put("54419", "00114");// 怀柔区
-        cityMap.put("54416", "00115");// 密云县
-        cityMap.put("54406", "00116");// 延庆县
-        cityMap.put("54596", "00104");// 房山区
-    }*/
     public static Map<String, String> CITY_CODE_MAP = new HashMap<String,String>(); // 转换城市id, <src,desc>
     static {
         CITY_CODE_MAP.put("001","54511");// 北京市
@@ -70,5 +50,6 @@ public class DataConstant {
         WEATHER_MAP.put("冻雨", "9");// 冻雨
         WEATHER_MAP.put("沙尘暴", "15");// 沙尘暴
         WEATHER_MAP.put("风沙", "16");// 风沙
+        WEATHER_MAP.put("霾", "17");// 霾
     }
 }

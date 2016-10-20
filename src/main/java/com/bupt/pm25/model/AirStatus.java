@@ -15,6 +15,7 @@ public class AirStatus {
 	private String no2;//二氧化氮含量
 	private String o3;//臭氧含量
 	private String so2;//二氧化硫含量
+	private String createTime;
 	public void setStation(StationEntity stationEntity){
 		this.stationId = stationEntity.getId();
 		this.stationName = stationEntity.getStationName();
@@ -65,24 +66,6 @@ public class AirStatus {
 
 	public String getAqi() {
 		return aqi;
-	}
-
-	@Override
-	public String toString() {
-		return "AirStatus{" +
-				"id=" + id +
-				", stationId='" + stationId + '\'' +
-				", stationName='" + stationName + '\'' +
-				", dic='" + dic + '\'' +
-				", cityId='" + cityId + '\'' +
-				", aqi='" + aqi + '\'' +
-				", pm25='" + pm25 + '\'' +
-				", pm10='" + pm10 + '\'' +
-				", co='" + co + '\'' +
-				", no2='" + no2 + '\'' +
-				", o3='" + o3 + '\'' +
-				", so2='" + so2 + '\'' +
-				'}';
 	}
 
 	public void setAqi(String aqi) {
@@ -136,5 +119,34 @@ public class AirStatus {
 
 	public void setSo2(String so2) {
 		this.so2 = so2;
+	}
+
+	@Override
+	public String toString() {
+		return "AirStatus{" +
+				"id=" + id +
+				", stationId='" + stationId + '\'' +
+				", stationName='" + stationName + '\'' +
+				", dic='" + dic + '\'' +
+				", cityId='" + cityId + '\'' +
+				", lon='" + lon + '\'' +
+				", lat='" + lat + '\'' +
+				", aqi='" + aqi + '\'' +
+				", pm25='" + pm25 + '\'' +
+				", pm10='" + pm10 + '\'' +
+				", co='" + co + '\'' +
+				", no2='" + no2 + '\'' +
+				", o3='" + o3 + '\'' +
+				", so2='" + so2 + '\'' +
+				", createTime='" + createTime + '\'' +
+				'}';
+	}
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
 	}
 }
