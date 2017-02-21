@@ -306,6 +306,8 @@
                             <value>>UTF-8</value>
                         </systemProperty>
                     </systemProperties>
+                    <stopPort>8282</stopPort>
+                    <stopKey>stop</stopKey>
                 </configuration>
             </plugin>
         </plugins>

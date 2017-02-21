@@ -4,6 +4,7 @@ package com.bupt.pm25.util;
 import javax.crypto.Mac;
 import java.net.URLEncoder;
 import java.security.InvalidKeyException;
+import java.util.UUID;
 import javax.crypto.spec.SecretKeySpec;
  
 public class JavaDemo {
@@ -88,7 +89,8 @@ public class JavaDemo {
      
      
     public static void main(String[] args) {
-        try {
+        System.out.println(UUID.randomUUID().toString());
+       /* try {
              
             //��Ҫ���ܵ�����  
             String data = "http://open.weather.com.cn/data/?areaid=101010100&type=index_v&date=201603141206&appid=8e04f41c971cfbc6";  
@@ -106,6 +108,6 @@ public class JavaDemo {
 
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }

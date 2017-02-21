@@ -9,6 +9,10 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Date;
 
-
-public class WeatherDataDao {
+public interface WeatherDataDao {
+    /**
+     *插入一条数据
+     * @param weatherDataEntity
+     */
+    public void insert(WeatherDataEntity weatherDataEntity);
 }

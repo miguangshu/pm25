@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bupt.pm25.dao.ResultDataDao">
+
+
+    <select id="findList" resultType="ResultDataEntity">
+        select
+          w.id AS "id",
+          w.longitude AS "longitude",
+          w.latitude AS "latitude",
+          w.phone_type AS "phoneType",
+          w.pic_name AS "picName",
+          w.predict_value AS "predictValue",
+          w.district_code AS "districtCode",
+          w.city_code AS "cityCode",
+          w.image_value AS "imageValue",
+          w.weather_value AS "weatherValue",
+          left(TRIM(w.create_date),10) AS "createDate"
+        from t_result_data w
+        order by w.id desc
+        limit #{pageNo},#{pageSize}
+    </select>
+</mapper>

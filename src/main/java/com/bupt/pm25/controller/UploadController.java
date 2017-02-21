@@ -1,7 +1,12 @@
 package com.bupt.pm25.controller;
 
+import com.bupt.pm25.util.FileUtils;
 import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUpload;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,28 +18,14 @@ import java.io.File;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 @RequestMapping("/pm25")
 @Controller
-public class MainController {
+public class UploadController {
 
-	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
-
-	/*@Autowired
-	private NoticeService noticeService;
-
-	*//**
-	 * 获取公告，返回页面
-	 *//*
-	@RequestMapping(value = "/getNotice")
-	public String getNotice(HttpServletRequest request, Model model) {
-		List<Notice> noticelList = noticeService.queryAllNotices();
-		model.addAttribute("noticelList", noticelList);
-		return "notice_list";
-	}*/
-
+	private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
 	/**
-	 *
 	 * @param lng 经度
 	 * @param lat 维度
 	 * @param areaCode 区号
@@ -45,19 +36,23 @@ public class MainController {
 	@RequestMapping(value = "upload")
 	@ResponseBody
 	public String upload(String lng,String lat,String areaCode,String phoneModel,HttpServletRequest request){
-		String temp=request.getSession().getServletContext().getRealPath("/")+"temp";   //临时目录
+		String temp=request.getSession().getServletContext().getRealPath("/")+"/temp";   //临时目录
 		System.out.println("temp="+temp);
-		String loadpath=request.getSession().getServletContext().getRealPath("/")+"Image"; //上传文件存放目录
+		String loadpath = request.getSession().getServletContext().getRealPath("/")+"/image"; //上传文件存放目录
 		System.out.println("loadpath="+loadpath);
-		DiskFileUpload fu =new DiskFileUpload();
-		fu.setSizeMax(1*1024*1024);   // 设置允许用户上传文件大小,单位:字节
-		fu.setSizeThreshold(4096);   // 设置最多只允许在内存中存储的数据,单位:字节
-		fu.setRepositoryPath(temp); // 设置一旦文件大小超过getSizeThreshold()的值时数据存放在硬盘的目录
+		FileItemFactory factory = new DiskFileItemFactory();
+		ServletFileUpload upload = new ServletFileUpload(factory);
+		upload.setFileSizeMax(1*1024*1024);
+//		FileUpload fu =new FileUpload();
+//		fu.setSizeMax(1*1024*1024);   // 设置允许用户上传文件大小,单位:字节
+//		fu.setSizeThreshold(4096);   // 设置最多只允许在内存中存储的数据,单位:字节
+//		fu.setRepositoryPath(temp); // 设置一旦文件大小超过getSizeThreshold()的值时数据存放在硬盘的目录
 		//开始读取上传信息
 		int index=0;
 		List fileItems =null;
 		try {
-			fileItems = fu.parseRequest(request);
+//			fileItems = fu.parseRequest(request);
+			fileItems = upload.parseRequest(request);
 			System.out.println("fileItems="+fileItems);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -71,16 +66,17 @@ public class MainController {
 				String name = item.getName();//获取上传文件名,包括路径
 				name=name.substring(name.lastIndexOf("\\")+1);//从全路径中提取文件名
 				long size = item.getSize();
-				if((name==null||name.equals("")) && size==0)
+				if((name == null||name.equals("")) && size==0)
 					continue;
 				int point = name.indexOf(".");
-				name=(new Date()).getTime()+name.substring(point,name.length())+index;
+				name = (new Date()).getTime()+name.substring(point,name.length());
 				index++;
+				FileUtils.createParentDir(new File(loadpath));
 				File fNew=new File(loadpath, name);
 				try {
+					fNew.createNewFile();
 					item.write(fNew);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
@@ -94,4 +90,6 @@ public class MainController {
 		String text1="11";
 		return "11";
 	}
+
+
 }

@@ -16,6 +16,7 @@ public class AirStatus {
 	private String o3;//臭氧含量
 	private String so2;//二氧化硫含量
 	private String createTime;
+	private String distance;
 	public void setStation(StationEntity stationEntity){
 		this.stationId = stationEntity.getId();
 		this.stationName = stationEntity.getStationName();
@@ -146,7 +147,31 @@ public class AirStatus {
 		return createTime;
 	}
 
+	public String getLon() {
+		return lon;
+	}
+
+	public void setLon(String lon) {
+		this.lon = lon;
+	}
+
+	public String getLat() {
+		return lat;
+	}
+
+	public void setLat(String lat) {
+		this.lat = lat;
+	}
+
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
+	}
+
+	public String getDistance() {
+		return distance;
+	}
+
+	public void setDistance(String distance) {
+		this.distance = distance;
 	}
 }

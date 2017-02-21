@@ -7,5 +7,10 @@ import java.util.List;
 /**
  * Created by miguangshu on 2016/6/21.
  */
-public class AirStatusDao {
+public interface AirStatusDao {
+    /**
+     * 批量插入
+     * @param airStatuses
+     */
+    public void inserBatch(List<AirStatus> airStatuses);
 }

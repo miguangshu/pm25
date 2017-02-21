@@ -12,13 +12,14 @@ import com.bupt.pm25.util.FetchWeatherDataUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  */
 public class WeatherService {
-
-    private WeatherDataDao weatherDataDao = new WeatherDataDao();
+    @Autowired
+    private WeatherDataDao weatherDataDao;
 
 
     /**
