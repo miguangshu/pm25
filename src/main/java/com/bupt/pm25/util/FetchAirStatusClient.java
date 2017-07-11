@@ -15,8 +15,7 @@ public class FetchAirStatusClient {
     private static Integer TIME_OUT = 3000;
     private static final String URL = "http://pm25.in/beijing";
     public static List<AirStatus> fetchAirStatus() throws IOException {
-        Document doc = null;
-        doc = Jsoup.connect(URL).get();
+        Document doc = Jsoup.connect(URL).get();
         List<Element> trs = doc.getElementsByTag("tr");
         List<AirStatus> airStatusList = new ArrayList<AirStatus>();
         for (Element tr : trs) {

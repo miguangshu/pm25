@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+	<bean id="fetchWeatherJob" class="com.bupt.pm25.schedule.FetchWeatherDataJob"/>
+	<bean id="fetchAirStatusDataJob" class="com.bupt.pm25.schedule.FetchAirStatusDataJob"/>
+	<bean id="fetchPm25DataJob" class="com.bupt.pm25.schedule.FetchPm25DataJob"/>
+	<!-- 定义调用对象和调用对象的方法 -->
+	<bean id="fetchWeatherDataTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject">
+			<ref bean="fetchWeatherJob"/>
+		</property>
+		<!-- 调用类中的方法 -->
+		<property name="targetMethod">
+			<value>work</value>
+		</property>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<!-- 定义调用对象和调用对象的方法 -->
+	<bean id="fetchAirStatusTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject">
+			<ref bean="fetchAirStatusDataJob"/>
+		</property>
+		<!-- 调用类中的方法 -->
+		<property name="targetMethod">
+			<value>work</value>
+		</property>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<!-- 定义调用对象和调用对象的方法 -->
+	<bean id="fetchPm25DataTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject">
+			<ref bean="fetchPm25DataJob"/>
+		</property>
+		<!-- 调用类中的方法 -->
+		<property name="targetMethod">
+			<value>work</value>
+		</property>
+		<property name="concurrent" value="false"/>
+	</bean>
+
+
+	<!-- 定义触发时间 -->
+	<bean id="fetchWeatherDataTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="fetchWeatherDataTask"/>
+		</property>
+		<!-- cron表达式 -->
+		<property name="cronExpression">
+			<value>0 0 */1 * * ?</value>
+		</property>
+<!--		<property name="cronExpression">
+			<value>0 */1 * * * ?</value>
+		</property>-->
+	</bean>
+	<!-- 定义触发时间 -->
+	<bean id="fetchAirStatusTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="fetchAirStatusTask"/>
+		</property>
+<!--		<property name="cronExpression">
+			<value>0 */3 * * * ?</value>
+		</property>-->
+		<!-- cron表达式 -->
+		<property name="cronExpression">
+			<value>0 */50 * * * ?</value>
+		</property>
+
+	</bean>
+	<!-- 定义触发时间 -->
+	<bean id="fetchPm25DataTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="fetchPm25DataTask"/>
+		</property>
+		<!-- cron表达式 -->
+		<property name="cronExpression">
+			<value>0 0 */1 * * ?</value>
+		</property>
+		<!--<property name="cronExpression">
+			<value>0 */3 * * * ?</value>
+		</property>-->
+	</bean>
+
+
+	<!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 -->
+	<bean id="taskManager" lazy-init="false" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="fetchAirStatusTrigger"/>
+				<ref bean="fetchWeatherDataTrigger"/>
+				<ref bean="fetchPm25DataTrigger"/>
+			</list>
+		</property>
+	</bean>
+</beans>

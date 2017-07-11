@@ -35,7 +35,7 @@ public class DataConstant {
         CITY_CODE_NAME_MAP.put("00103","丰台区");// 丰台区
         CITY_CODE_NAME_MAP.put("00105","朝阳区");// 朝阳区
         CITY_CODE_NAME_MAP.put("00106","西城区");// 西城区
-        CITY_CODE_NAME_MAP.put("00107","东城区1");// 东城区
+        CITY_CODE_NAME_MAP.put("00107","东城区");// 东城区
         CITY_CODE_NAME_MAP.put("00108","大兴区");// 大兴区
         CITY_CODE_NAME_MAP.put("00109","通州区");// 通州区
         CITY_CODE_NAME_MAP.put("00110","顺义区");// 顺义区

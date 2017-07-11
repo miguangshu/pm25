@@ -4,6 +4,10 @@ package com.bupt.pm25.util;
  * Created by miguangshu on 2016/10/20.
  */
 
+import com.bupt.pm25.controller.UploadController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -17,6 +21,8 @@ import java.util.Arrays;
 import java.util.UUID;
 
 public class SocketUploadUtil {
+    private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
+
     private static SocketUploadUtil uploadUtil;
     private static final String BOUNDARY = UUID.randomUUID().toString(); // 边界标识 随机生成
     private static final String PREFIX = "--";
@@ -80,7 +86,24 @@ public class SocketUploadUtil {
             return;
         }
     }
-
+    /**
+     *同步上传图片
+     * @param filePath
+     * @param address
+     * @param port
+     */
+    public String synUploadFile(String filePath, String address,int port) {
+        if (filePath == null) {
+            return filePath+"文件不存在";
+        }
+        try {
+            File file = new File(filePath);
+            return synUploadFile(file,address,port);
+        } catch (Exception e) {
+            logger.error("上传文件{}异常，异常原因：{}",filePath,e);
+            return e.getMessage();
+        }
+    }
     /**
      *
      * @param file
@@ -102,6 +125,58 @@ public class SocketUploadUtil {
         }).start();
     }
 
+    /**
+     *
+     * @param fileName
+     * @param address
+     * @param port
+     */
+    public String uploadFileName(final String fileName, final String address, final int port) {
+        Socket socket = null;
+        OutputStream outputStream = null;
+        try {
+            socket = new Socket();
+            SocketAddress socketAddress = new InetSocketAddress(address, port);
+            socket.connect(socketAddress,connectTimeout);
+            outputStream = socket.getOutputStream();
+            int picNameLen = fileName.length();
+            byte[] picNameLenArray = BasicDataTypeTransfer.getInstance().IntToByteArray(picNameLen);
+            byte[] picNameArray = BasicDataTypeTransfer.getInstance().StringToByteArray(fileName);
+            byte[] headArray = ArrayUtil.getInstance().concat(picNameLenArray, picNameArray);
+            long totalLen = 8 + headArray.length;
+            byte[] totalLenArray = BasicDataTypeTransfer.getInstance().longToByteArray(totalLen);
+            byte[] preHeadArray = ArrayUtil.getInstance().concat(totalLenArray, headArray);
+            outputStream.write(preHeadArray);
+            outputStream.flush();
+            InputStream socketInputStream = socket.getInputStream();
+            byte[] responseByte = new byte[1024];
+            int responseLen = socketInputStream.read(responseByte);
+            socketInputStream.close();
+            String responseMessage = new String(Arrays.copyOf(responseByte, responseLen));
+            return responseMessage;
+        } catch(SocketTimeoutException e){
+            logger.error("上传图片名称异常：",e);
+            throw new RuntimeException("上传图片异常，异常原因："+e.getMessage());
+        } catch (IOException e){
+            logger.error("上传图片名称异常：",e);
+            throw new RuntimeException("上传图片异常，异常原因："+e.getMessage());
+        } catch(Exception e){
+            logger.error("上传图片名称异常：",e);
+            throw new RuntimeException("上传图片异常，异常原因："+e.getMessage());
+        }finally {
+            try {
+                if(outputStream != null) {
+                    outputStream.close();
+                }
+                if(socket != null){
+                    socket.close();
+                }
+            } catch (IOException e) {
+                logger.error("上传图片名称异常：",e);
+                throw new RuntimeException("上传图片异常，异常原因："+e.getMessage());
+            }
+        }
+    }
     private void toUploadFile(File file, String address, int port) {
         String result = null;
         requestTime= 0;
@@ -131,7 +206,6 @@ public class SocketUploadUtil {
             onUploadProcessListener.initUpload((int) file.length());
             onUploadProcessListener.onUploadProcess(curlen);
             outputStream.write(preHeadArray);
-
             while ((length = is.read(tmpArray)) != -1) {
                 curlen = length + curlen;
                 outputStream.write(tmpArray, 0, length);
@@ -167,7 +241,71 @@ public class SocketUploadUtil {
         }
 
     }
+    private String synUploadFile(File file, String address, int port) {
+        String result = null;
+        requestTime= 0;
+        Socket socket = null;
+        long requestTime = System.currentTimeMillis();
+        long responseTime = 0;
+        OutputStream outputStream = null;
+        try {
+            socket = new Socket();
+            SocketAddress socketAddress = new InetSocketAddress(address, port);
+            socket.connect(socketAddress,connectTimeout);
+            outputStream = socket.getOutputStream();
+            String picName = file.getName();//获取图片名称
+            int picNameLen = picName.length();
+            byte[] picNameLenArray = BasicDataTypeTransfer.getInstance().IntToByteArray(picNameLen);
+            byte[] picNameArray = BasicDataTypeTransfer.getInstance().StringToByteArray(picName);
+            long picContentLen = file.length();
+            byte[] picContentLenArray = BasicDataTypeTransfer.getInstance().longToByteArray(picContentLen);
+            byte[] headArray = ArrayUtil.getInstance().concat(ArrayUtil.getInstance().concat(picNameLenArray, picNameArray), picContentLenArray);
+            long totalLen = 8 + headArray.length;
+            byte[] totalLenArray = BasicDataTypeTransfer.getInstance().longToByteArray(totalLen);
+            byte[] preHeadArray = ArrayUtil.getInstance().concat(totalLenArray, headArray);
+            byte[] tmpArray = new byte[1024];
+            int length = 0;
+            int curlen = preHeadArray.length;
+            InputStream is = new FileInputStream(file);
+            outputStream.write(preHeadArray);
+            while ((length = is.read(tmpArray)) != -1) {
+                curlen = length + curlen;
+                outputStream.write(tmpArray, 0, length);
+            }
+            is.close();
+            outputStream.flush();
+            responseTime = System.currentTimeMillis();
+            this.requestTime = (int)(responseTime - requestTime)/1000;
+            InputStream socketInputStream = socket.getInputStream();
+            byte[] responseByte = new byte[1024];
+            int responseLen = socketInputStream.read(responseByte);
+            socketInputStream.close();
+            String responseMessage = new String(Arrays.copyOf(responseByte, responseLen));
+            return responseMessage;
+        } catch(SocketTimeoutException e){
+            logger.error("上传图片名称异常：",e);
+            throw new RuntimeException("上传图片异常，异常原因："+e.getMessage());
+        } catch (IOException e){
+            logger.error("上传图片名称异常：",e);
+            throw new RuntimeException("上传图片异常，异常原因："+e.getMessage());
+        } catch(Exception e){
+            logger.error("上传图片名称异常：",e);
+            throw new RuntimeException("上传图片异常，异常原因："+e.getMessage());
+        }finally {
+            try {
+                if(outputStream != null) {
+                    outputStream.close();
+                }
+                if(socket != null){
+                    socket.close();
+                }
+            } catch (IOException e) {
+                logger.error("上传图片名称异常：",e);
+                throw new RuntimeException("上传图片异常，异常原因："+e.getMessage());
+            }
+        }
 
+    }
     /**
      * 发送上传结果
      * @param responseCode
@@ -236,4 +374,8 @@ public class SocketUploadUtil {
 
     }
 
+    public static void main(String[] args) {
+        SocketUploadUtil uploadUtil = SocketUploadUtil.getInstance();
+        uploadUtil.uploadFile("","11.0.1.99",9400);
+    }
 }

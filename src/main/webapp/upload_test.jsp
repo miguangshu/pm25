@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<form method="post" action="<%=request.getContextPath()%>/pm25/upload" enctype="multipart/form-data" >
+<form method="post" action="<%=request.getContextPath()%>/pm25/upload" >
     <p><input type="file" name="myfile1" value="浏览文件" /></p>
     <p><input type="text" name="lon" value="116.364468" /></p>
     <p><input type="text" name="lat" value="39.970859" /></p>

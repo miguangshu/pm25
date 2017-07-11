@@ -27,4 +27,26 @@
         limit #{pageNo},#{pageSize}
 
     </select>
+    <select id="findListIndicateArea" resultType="WeatherDataEntity">
+        select
+        w.id AS "id",
+        w.city_id AS "cityId",
+        w.city_name AS "cityName",
+        w.temperature AS "temperature",
+        w.pressure AS "pressure",
+        w.humidity AS "humidity",
+        w.wind_speed AS "windSpeed",
+        w.wind_direction_name AS "windDirectionName",
+        w.wind_direction AS "windDirection",
+        w.weather_name AS "weatherName",
+        w.weather AS "weather",
+        w.collect_time AS "collectTime",
+        w.extend AS "extend",
+        DATE_FORMAT(TRIM(w.collect_time),'%Y%m%d%H') AS "createDate"
+        from t_weather_data w
+        where w.city_id = '001'
+        order by w.id desc
+        limit #{pageNo},#{pageSize}
+
+    </select>
 </mapper>

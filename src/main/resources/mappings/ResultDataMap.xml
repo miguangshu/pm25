@@ -19,5 +19,32 @@
         from t_result_data w
         order by w.id desc
         limit #{pageNo},#{pageSize}
-    </select>
+        </select>
+        <insert id="insert"  useGeneratedKeys="true" parameterType="ResultDataEntity" >
+            INSERT INTO t_result_data (
+              longitude,
+              latitude,
+              phone_type,
+              pic_name,
+              predict_value,
+              create_date,
+              district_code,
+              city_code,
+              image_value,
+              weather_value
+            )
+            VALUES
+            (
+              #{longitude},
+              #{latitude},
+              #{phoneType},
+              #{picName},
+              #{predictValue},
+              now(),
+              #{districtCode},
+              #{cityCode},
+              #{imageValue},
+              #{weatherValue}
+            )
+</insert>
 </mapper>

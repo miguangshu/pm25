@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bupt.pm25.dao.Pm25Dao">
+
+    <insert id="insertBatch"  useGeneratedKeys="true">
+        INSERT INTO `t_pm25_usa`
+            (`station_id`, `station_name`, `station_dic`, `city_id`, `lon`, `lat`, `pm25`, `pm10`, `co`, `no2`, `o3`, `so2`, `create_time`)
+        <foreach collection="list" item="item" separator=" union all " >
+            select #{item.stationId},#{item.stationName},#{item.dic},#{item.cityId},#{item.lon},#{item.lat},#{item.pm25},#{item.pm10},#{item.co},#{item.no2},#{item.o3},#{item.so2},sysdate()
+            from dual
+        </foreach>
+    </insert>
+
+</mapper>

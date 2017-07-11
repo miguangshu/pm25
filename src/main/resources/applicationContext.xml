@@ -48,8 +48,7 @@
 		<!-- 建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。 -->
 		<property name="testWhileIdle" value="#{daoProps['dao.testWhileIdle']}" />
 		<!-- Destroy线程会检测连接的间隔时间 -->
-		<property name="timeBetweenEvictionRunsMillis"
-			value="#{daoProps['dao.timeBetweenEvictionRunsMillis']}" />
+		<property name="timeBetweenEvictionRunsMillis" value="#{daoProps['dao.timeBetweenEvictionRunsMillis']}" />
 		<!-- 插件：监控统计stat 日志log4j 防御sql注入的wall -->
 		<property name="filters" value="#{daoProps['dao.filters']}" />
 		<!-- 对于长时间不使用的连接强制关闭 -->
@@ -62,7 +61,7 @@
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="typeAliasesPackage" value="com.bupt.pm25"/>
+		<property name="typeAliasesPackage" value="com.bupt.pm25.model"/>
 		 <property name="configLocation" value="classpath:mybatis-config.xml" />
 		<property name="mapperLocations" value="classpath*:mappings/*.xml" />
 	</bean>
@@ -71,7 +70,6 @@
 		<property name="basePackage" value="com.bupt.pm25.dao" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
-	
 	<!-- 事务配置 -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

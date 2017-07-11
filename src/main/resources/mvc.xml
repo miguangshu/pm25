@@ -55,8 +55,7 @@
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
 	</bean>
 
 	<!-- 使用默认的Servlet来响应静态文件 -->

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
         <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bupt.pm25.dao.AirStatusDao">
-    <insert id="insert"  useGeneratedKeys="true">
+    <insert id="insertBatch"  useGeneratedKeys="true">
         INSERT INTO `t_pm25`
             (`station_id`, `station_name`, `station_dic`, `city_id`, `lon`, `lat`, `pm25`, `pm10`, `co`, `no2`, `o3`, `so2`, `create_time`)
         <foreach collection="list" item="item" separator=" union all " >
@@ -30,6 +30,26 @@
             p.create_time AS "createTime"
         from t_pm25 p
         where p.station_dic=#{dic}
+        and DATE_FORMAT(p.create_time,'%Y%m%d%H')=#{createTime}
+    </select>
+    <select id="selectByStationId" resultType="AirStatus">
+        select
+        p.id AS "id",
+        p.station_id AS "stationId",
+        p.station_name AS "stationName",
+        p.station_dic AS "stationDic",
+        p.city_id AS "cityId",
+        p.lon AS "lon",
+        p.lat AS "lat",
+        p.pm25 AS "pm25",
+        p.pm10 AS "pm10",
+        p.co AS "co",
+        p.no2 AS "no2",
+        p.o3 AS "o3",
+        p.so2 AS "so2",
+        p.create_time AS "createTime"
+        from t_pm25 p
+        where p.station_id=#{stationId}
         and DATE_FORMAT(p.create_time,'%Y%m%d%H')=#{createTime}
     </select>
     <select id="selectByDistance" resultType="AirStatus">

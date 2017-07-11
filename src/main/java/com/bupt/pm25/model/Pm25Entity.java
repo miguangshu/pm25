@@ -1,6 +1,6 @@
 package com.bupt.pm25.model;
 
-public class AirStatus {
+public class Pm25Entity {
 	private int id;
 	private String stationId;//站点ID
 	private String stationName;//站点名称
