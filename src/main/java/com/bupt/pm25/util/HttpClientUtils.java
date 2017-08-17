@@ -99,7 +99,7 @@ public class HttpClientUtils {
 	}
 	public static void main(String[] args) {
 		try {
-			System.out.println(sendGet("http://www.nmc.cn/service/data/real/101010100.json?_=1458659170570"));
+			System.out.println(sendGet("https://www.lagou.com/gongsi/78892.html"));
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

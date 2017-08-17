@@ -17,6 +17,7 @@
           w.weather_value AS "weatherValue",
           left(TRIM(w.create_date),10) AS "createDate"
         from t_result_data w
+        where create_date like CONCAT(#{createDate},'%')
         order by w.id desc
         limit #{pageNo},#{pageSize}
         </select>

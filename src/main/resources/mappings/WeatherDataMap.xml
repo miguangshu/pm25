@@ -23,9 +23,25 @@
           w.extend AS "extend",
           DATE_FORMAT(TRIM(w.collect_time),'%Y%m%d%H') AS "createDate"
         from t_weather_data w
+        where 1=1
+        <if test="collectTime != null">
+            and w.collect_time >=#{collectTime}
+        </if>
         order by w.id desc
         limit #{pageNo},#{pageSize}
 
+    </select>
+    <select id="findOldDataList" resultType="WeatherDataEntity">
+        select
+        w.dict_id AS "cityId",
+        w.temperature AS "temperature",
+        w.pressure AS "pressure",
+        w.humidity AS "humidity",
+        w.wind_speed AS "windSpeed",
+        w.wind_direction AS "windDirection",
+        w.time AS "collectTime",
+        from t_weather_data_old w
+        limit #{pageNo},#{pageSize}
     </select>
     <select id="findListIndicateArea" resultType="WeatherDataEntity">
         select

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bupt.pm25.dao.LgCompanyDao">
+    <insert id="insertBatch"  useGeneratedKeys="true">
+        INSERT INTO `lg_company`
+            (`company_full_name`, `company_short_name`, `company_code`, `company_logo`, `city`, `industry_field`, `company_features`, `finance_stage`, `interview_remark_num`, `process_rate`, `approve`, `country_score`, `city_score`)
+        <foreach collection="list" item="item" separator=" union all " >
+            select #{item.companyFullName},#{item.companyShortName},#{item.companyCode},#{item.companyLogo},#{item.city},#{item.industryField},#{item.companyFeatures},#{item.financeStage},#{item.interviewRemarkNum},#{item.processRate},#{item.approve},#{item.countryScore},#{item.cityScore}
+            from dual
+        </foreach>
+    </insert>
+
+</mapper>

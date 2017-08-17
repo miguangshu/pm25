@@ -1,5 +1,5 @@
-import com.bupt.pm25.model.WeatherDataEntity;
 import com.bupt.pm25.model.AirStatus;
+import com.bupt.pm25.model.WeatherDataEntity;
 import com.bupt.pm25.util.excel.ExportExcel;
 import com.google.common.collect.Lists;
 import org.apache.ibatis.session.SqlSession;
@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * Created by miguangshu on 2016/6/21.
  */
-public class ExportWeatherAndPM25 {
+public class ExportWeatherAndPM25OldData {
     public static void main(String[] args) throws IOException {
         //mybatis的配置文件
         String resource = "mybatis.xml";
@@ -35,7 +35,7 @@ public class ExportWeatherAndPM25 {
          * me.gacl.mapping.userMapper是userMapper.xml文件中mapper标签的namespace属性的值，
          * getUser是select标签的id属性值，通过select标签的id属性值就可以找到要执行的SQL
          */
-        String statement = "com.bupt.pm25.dao.WeatherDataDao.findList";//映射sql的标识字符串
+        String statement = "com.bupt.pm25.dao.WeatherDataDao.findOldDataList";//映射sql的标识字符串
         //执行查询返回一个唯一user对象的sql
         int pageNo = 0;
         int pageSize =10000;

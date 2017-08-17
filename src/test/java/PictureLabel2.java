@@ -1,4 +1,5 @@
 import com.bupt.pm25.model.AirStatus;
+import com.bupt.pm25.model.ResultDataEntity;
 import com.bupt.pm25.model.WeatherDataEntity;
 import com.bupt.pm25.util.excel.ExportExcel;
 import com.google.common.collect.Lists;
@@ -10,10 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +20,7 @@ import java.util.Map;
 /**
  * Created by katiemi on 2017/1/12.
  */
-public class PictureLabel {
+public class PictureLabel2 {
     private static Logger LOGGER = LoggerFactory.getLogger(PictureLabel.class);
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
     public static void main(String[] args) throws Exception {
@@ -29,19 +28,23 @@ public class PictureLabel {
         InputStream is = ExportWeatherAndPM25.class.getClassLoader().getResourceAsStream(resource);
         SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(is);
         SqlSession session = sessionFactory.openSession();
+        String statement = "com.bupt.pm25.dao.ResultDataDao.findList";//映射sql的标识字符串
+        Map<String,Object> params = new HashMap<String,Object>();
+        params.put("createDate","2017");
+        params.put("pageNo",0);
+        params.put("pageSize",3000);
+        List<ResultDataEntity> resultDataEntities = session.selectList(statement,params);
+        System.out.printf(resultDataEntities.size()+"");
         List<String> headerList = Lists.newArrayList();
         headerList.add("index");
         headerList.add("picName");
         headerList.add("pm25");
         headerList.add("pm10");
         ExportExcel ee = new ExportExcel("天空图片", headerList);
-//        File file = new File("/Users/katiemi/work/bupt/original");
-        File file = new File("/Users/katiemi/work/bupt/pic_20170811/target");
 
-        File[] files =file.listFiles();
         int i= 1;
-        for (File pic:files){
-            String picName = pic.getName();
+        for (ResultDataEntity resultDataEntity:resultDataEntities){
+            String picName = resultDataEntity.getPicName();
 //            System.out.println(picName);
             String[] picSpilt = picName.split("_");
             if(picSpilt.length>4) {
@@ -75,7 +78,7 @@ public class PictureLabel {
                 }
             }
         }
-        String fileName = "pic2.xlsx";
+        String fileName = "pic.xlsx";
         ee.writeFile(fileName);
     }
 
