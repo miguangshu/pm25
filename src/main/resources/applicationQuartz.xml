@@ -53,10 +53,10 @@
 		</property>
 		<!-- cron表达式 -->
 		<!--<property name="cronExpression">
-			<value>0 0 */1 * * ?</value>
+			<value>0 */1 * * * ?</value>
 		</property>-->
 		<property name="cronExpression">
-			<value>0 */1 * * * ?</value>
+			<value>0 0 */1 * * ?</value>
 		</property>
 	</bean>
 	<!-- 定义触发时间 -->
@@ -64,13 +64,13 @@
 		<property name="jobDetail">
 			<ref bean="fetchAirStatusTask"/>
 		</property>
-		<property name="cronExpression">
-			<value>0 */3 * * * ?</value>
-		</property>
-		<!-- cron表达式 -->
 		<!--<property name="cronExpression">
-			<value>0 */50 * * * ?</value>
+			<value>0 */3 * * * ?</value>
 		</property>-->
+		<!-- cron表达式 -->
+		<property name="cronExpression">
+			<value>0 */55 * * * ?</value>
+		</property>
 
 	</bean>
 	<!-- 定义触发时间 -->
@@ -79,12 +79,12 @@
 			<ref bean="fetchPm25DataTask"/>
 		</property>
 		<!-- cron表达式 -->
-		<!--<property name="cronExpression">
-			<value>0 0 */1 * * ?</value>
-		</property>-->
 		<property name="cronExpression">
-			<value>0 */3 * * * ?</value>
+			<value>0 0 */1 * * ?</value>
 		</property>
+		<!--<property name="cronExpression">-->
+			<!--<value>0 */3 * * * ?</value>-->
+		<!--</property>-->
 	</bean>
 
 

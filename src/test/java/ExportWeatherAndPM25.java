@@ -143,7 +143,5 @@ public class ExportWeatherAndPM25 {
             pageNo++;
             if(weatherDataEntities.size()<pageSize) break;
         }
-
     }
-
 }

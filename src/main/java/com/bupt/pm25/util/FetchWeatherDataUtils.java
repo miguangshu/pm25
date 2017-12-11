@@ -11,7 +11,7 @@ public class FetchWeatherDataUtils {
 //	public final static String URL = "http://api.k780.com:88/";
 //    public static String URL = "http://www.nmc.cn/service/data/real/$cityid$.json?_=$timestamp$";
 	public static String URL = "http://www.nmc.cn/f/rest/real/cityCode?_=timestamp";
-	public static 	ObjectMapper mapper = new ObjectMapper(); // create once, reuse
+	public static ObjectMapper mapper = new ObjectMapper(); // create once, reuse
 
 	/**
 	 * 根据城市编码获取天气数据

@@ -75,5 +75,4 @@
               DATE_FORMAT(p.create_time, '%Y%m%d%H') like CONCAT(#{createTime},'%')
         ORDER BY distance limit 0,5
     </select>
-
 </mapper>

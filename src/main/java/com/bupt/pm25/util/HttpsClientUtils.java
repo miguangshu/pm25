@@ -1,5 +1,6 @@
 package com.bupt.pm25.util;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
@@ -79,5 +80,9 @@ public class HttpsClientUtils extends DefaultHttpClient {
             ex.printStackTrace();
         }
         return result;
+    }
+
+    public static void main(String[] args) {
+        System.out.printf(doPost("https://www.lagou.com/gongsi/78892.html",new HashedMap(),"UTF-8"));
     }
 }
