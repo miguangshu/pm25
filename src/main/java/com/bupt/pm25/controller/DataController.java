@@ -34,7 +34,7 @@ public class DataController implements SocketUploadUtil.OnUploadProcessListener{
 	 * @param request
      * @return
      */
-	@RequestMapping(value = "upload1")
+	@RequestMapping(value = "upload2")
 	@ResponseBody
 	public HttpMessage upload(HttpServletRequest request) {
 		HttpMessage httpMessage = new HttpMessage();

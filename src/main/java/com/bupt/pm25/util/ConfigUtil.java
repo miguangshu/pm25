@@ -34,6 +34,14 @@ public class ConfigUtil {
 			throw new RuntimeException("上传图片端口号配置为空");
 		}
 	}
+	public static String getphantomjsBinaryPath(){
+		String path = PropertiesUtil.getInstance("config.properties").getText("phantomjs.binary.path");
+		if (StringUtils.isNoneBlank(path)) {
+			return path;
+		}else{
+			throw new RuntimeException("phantomjs地址配置为空");
+		}
+	}
 	public static void main(String[] args) {
 		System.out.println(getUploadImageDir());
 	}

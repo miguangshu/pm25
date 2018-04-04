@@ -8,7 +8,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <properties>
-        <jackson.version>2.7.0</jackson.version>
+        <jackson.version>2.6.0</jackson.version>
         <jackson2.version>1.9.13</jackson2.version>
         <quartz.version>2.2.1</quartz.version>
         <slf.version>1.7.7</slf.version>
@@ -21,6 +21,7 @@
         <jetty.version>7.6.14.v20131031</jetty.version>
         <poi.version>3.14</poi.version>
         <guava.version>17.0</guava.version>
+        <hadoop.version>2.8.0</hadoop.version>
 
     </properties>
     <dependencies>
@@ -283,6 +284,42 @@
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
         </dependency>
+        <!-- hadoop -->
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-client</artifactId>
+            <version>${hadoop.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-common</artifactId>
+            <version>${hadoop.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-mapreduce-client-core</artifactId>
+            <version>${hadoop.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-mapreduce-client-common</artifactId>
+            <version>${hadoop.version}</version>
+        </dependency>
+        <!--hadoop end-->
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-server -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>2.45.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.codeborne/phantomjsdriver -->
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>phantomjsdriver</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+
+
     </dependencies>
     <build>
         <plugins>
